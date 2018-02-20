@@ -1,14 +1,26 @@
 package com.renovite.model;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
+
 @Entity
-public class IsoData implements Serializable {
+public class IsoData implements DataSerializable  {
+	/**
+	 * 
+	 */
 	@Id
 	int MULTIINST_ID;
 	public String getI125_SUPP_INFO1() {
@@ -242,6 +254,10 @@ public class IsoData implements Serializable {
 	String I149_CRYPT_CSBK;
 	@Column
 	int AUTH_RC;
+	
+	public IsoData() {
+		
+	}
 	public IsoData(int mULTIINST_ID, long aUTH_SERIAL_NO, Date lTIMESTAMP, String sOURCE, String mSG_FORMAT,
 			long oTB_AMT_CNTR, long oTB_AMT_CARD, int mSG_TRXN_TYPE, int mSG_TRXN_MODE, int mSG_TRXN_SPECIFICS,
 			long mSG_CLASS, long mSG_TYPE, long tRXN_TYPE, long tRXN_ENTRY_MODE, String i000_MSG_TYPE,
@@ -269,7 +285,6 @@ public class IsoData implements Serializable {
 			String i139_2_ARPC_RESCD, long i142_SCRIPTSEND, String i143_SCRIPT_RES, String i144_CRYP_TR,
 			String i145_TRM_CNTRY, String i146_TRM_DATE, String i147_CRYPT_AMT, String i148_CRYPT_CURR,
 			String i149_CRYPT_CSBK, int aUTH_RC) {
-		super();
 		MULTIINST_ID = mULTIINST_ID;
 		AUTH_SERIAL_NO = aUTH_SERIAL_NO;
 		LTIMESTAMP = lTIMESTAMP;
@@ -384,6 +399,126 @@ public class IsoData implements Serializable {
 		I149_CRYPT_CSBK = i149_CRYPT_CSBK;
 		AUTH_RC = aUTH_RC;
 	}
+	
+	public IsoData getData() {
+		IsoData isoData = new IsoData();
+		isoData.getMULTIINST_ID();
+		isoData.getAUTH_SERIAL_NO();
+		isoData.getLTIMESTAMP();
+		isoData.getSOURCE();
+		isoData.getMSG_FORMAT();
+		isoData.getOTB_AMT_CNTR();
+		isoData.getOTB_AMT_CARD();
+		isoData.getMSG_TRXN_TYPE();
+		isoData.getMSG_TRXN_MODE();
+		isoData.getMSG_TRXN_SPECIFICS();
+		isoData.getMSG_CLASS();
+		isoData.getMSG_TYPE();
+		isoData.getTRXN_TYPE();
+		isoData.getTRXN_ENTRY_MODE();
+		isoData.getI000_MSG_TYPE();
+		isoData.getI002_NUMBER();
+		isoData.getI003_PROC_CODE();
+		isoData.getI004_AMT_TRXN();
+		isoData.getI005_AMT_SETTLE();
+		isoData.getI006_AMT_BILL();
+		isoData.getI007_TRANS_DT();
+		isoData.getI011_TRACE_NO();
+		isoData.getI012_LCL_TIME();
+		isoData.getI013_LCL_DATE();
+		isoData.getI014_EXP_DATE();
+		isoData.getI018_MER_TYPE();
+		isoData.getI019_ACQ_COUNTRY();
+		isoData.getI021_FWD_COUNTRY();
+		isoData.getI022_POS_ENTRY();
+		isoData.getI032_ACQ_ID();
+		isoData.getI035_TRACK2();
+		isoData.getI037_RET_REF_NO();
+		isoData.getI038_AUTH_ID();
+		isoData.getI039_RESP_CODE();
+		isoData.getI041_POS_ID();
+		isoData.getI042_MER_ID();
+		isoData.getI043A_MER_NAME();
+		isoData.getI043A_MER_CITY();
+		isoData.getI043A_MER_COUNTRY();
+		isoData.getI049_CUR_TRXN();
+		isoData.getI050_CUR_SETTLE();
+		isoData.getI051_CUR_BILL();
+		isoData.getFRAUD();
+		isoData.getI053_SEC_CNTRL();
+		isoData.getI054_ADDTNL_AMT();
+		isoData.getI055_ICC_DATA();
+		isoData.getI056_ORG_DATA();
+		isoData.getI058_AUTH_AGENT();
+		isoData.getI059_POS_GEO_DATA();
+		isoData.getI060_POS_CAP();
+		isoData.getI061V1_OTH_AMT_TXN();
+		isoData.getI061V2_OTH_AMT_BIL();
+		isoData.getI061V3_REP_AMT_BIL();
+		isoData.getI061M_POS_DATA();
+		isoData.getI062V1_AUTH_String();
+		isoData.getI062V2_TRANS_ID();
+		isoData.getI062V3_VALIDAT_CD();
+		isoData.getI062V4_MRKT_DATA();
+		isoData.getI062V5_DURATION();
+		isoData.getI062V6_PRSTG_PROP();
+		isoData.getI063_BANKNET_DATA();
+		isoData.getI063V1_NETWORK_ID();
+		isoData.getI063V2_TIME_LIMIT();
+		isoData.getI063V3_MIS_CAS_RD();
+		isoData.getI063V4_STIP_RS();
+		isoData.getI063V5_PMC_ID();
+		isoData.getI068_RCV_CNTRY();
+		isoData.getI072_MSG_NUM_LST();
+		isoData.getI090_ORIG_DATA();
+		isoData.getI093_RSP_IND();
+		isoData.getI094_SVC_IND();
+		isoData.getI095_ACT_TRAN_AMT();
+		isoData.getI100_RCV_INST();
+		isoData.getI101_FILE_NAME();
+		isoData.getI102_ACCT_ID1();
+		isoData.getI103_ACCT_ID2();
+		isoData.getI104_TRAN_DESC();
+		isoData.getI118_INTRA_COUNTRY();
+		isoData.getI120_ORIG_MSG_TYP();
+		isoData.getI123_ADR_VER();
+		isoData.getI124_GOODS_CODE();
+		isoData.getI125_SUPP_INFO1();
+		isoData.getI126V6_CH_CSERIAL();
+		isoData.getI126V7_ME_CSERIAL();
+		isoData.getI126V8_TRXN_ID();
+		isoData.getI126V9_STAIN();
+		isoData.getI126V10_CVV2();
+		isoData.getI126V18_AGENT_UNIQ_ACC_RSLT();
+		isoData.getI126V20_ADD_AUTH_METHOD();
+		isoData.getI126V21_ADD_AUTH_RSN_CD();
+		isoData.getI130_TERM_CAPA();
+		isoData.getI131_TVR();
+		isoData.getI132_UNPREDICT();
+		isoData.getI133_TERM_SERIAL();
+		isoData.getI134_VISA_DISCR();
+		isoData.getI135A_PREAUTHTRACE();
+		isoData.getI135B_PURCHTRACE();
+		isoData.getI135C_CRYPTTRACE();
+		isoData.getI135D_KEYVERSION();
+		isoData.getI136_CRYPTOGRAM();
+		isoData.getI137_ATC();
+		isoData.getI138_APL();
+		isoData.getI139_1_ARPC();
+		isoData.getI139_2_ARPC_RESCD();
+		isoData.getI142_SCRIPTSEND();
+		isoData.getI143_SCRIPT_RES();
+		isoData.getI144_CRYP_TR();
+		isoData.getI145_TRM_CNTRY();
+		isoData.getI146_TRM_DATE();
+		isoData.getI147_CRYPT_AMT();
+		isoData.getI148_CRYPT_CURR();
+		isoData.getI149_CRYPT_CSBK();
+		isoData.getAUTH_RC();
+		
+		return isoData;
+	}
+	
 	public int getMULTIINST_ID() {
 		return MULTIINST_ID;
 	}
@@ -1055,6 +1190,239 @@ public class IsoData implements Serializable {
 	}
 	public void setAUTH_RC(int aUTH_RC) {
 		AUTH_RC = aUTH_RC;
+	}
+	@Override
+	public void readData(ObjectDataInput in) throws IOException {
+		MULTIINST_ID = in.readInt();
+		AUTH_SERIAL_NO = in.readLong();
+		LTIMESTAMP = new Date(in.readLong());
+		SOURCE = in.readUTF();
+		MSG_FORMAT = in.readUTF();
+		OTB_AMT_CNTR = in.readLong();
+		OTB_AMT_CARD = in.readLong();
+		MSG_TRXN_TYPE = in.readInt();
+		MSG_TRXN_MODE = in.readInt();
+		MSG_TRXN_SPECIFICS = in.readInt();
+		MSG_CLASS = in.readLong();
+		MSG_TYPE = in.readLong();
+		TRXN_TYPE = in.readLong();
+		TRXN_ENTRY_MODE = in.readLong();
+		I000_MSG_TYPE = in.readUTF();
+		I002_NUMBER = in.readUTF();
+		I003_PROC_CODE = in.readUTF();
+		I004_AMT_TRXN = in.readLong();
+		I005_AMT_SETTLE = in.readLong();
+		I006_AMT_BILL = in.readLong();
+		I007_TRANS_DT = in.readUTF();
+		I011_TRACE_NO = in.readUTF();
+		I012_LCL_TIME = in.readUTF();
+		I013_LCL_DATE = in.readUTF();
+		I014_EXP_DATE = in.readUTF();
+		I018_MER_TYPE = in.readUTF();
+		I019_ACQ_COUNTRY = in.readUTF();
+		I021_FWD_COUNTRY = in.readUTF();
+		I022_POS_ENTRY = in.readUTF();
+		I032_ACQ_ID = in.readUTF();
+		I035_TRACK2 = in.readUTF();
+		I037_RET_REF_NO = in.readUTF();
+		I038_AUTH_ID = in.readUTF();
+		I039_RESP_CODE = in.readUTF();
+		I041_POS_ID = in.readUTF();
+		I042_MER_ID = in.readUTF();
+		I043A_MER_NAME = in.readUTF();
+		I043A_MER_CITY = in.readUTF();
+		I043A_MER_COUNTRY = in.readUTF();
+		I049_CUR_TRXN = in.readUTF();
+		I050_CUR_SETTLE = in.readUTF();
+		I051_CUR_BILL = in.readUTF();
+		FRAUD = in.readUTF();
+		I053_SEC_CNTRL = in.readUTF();
+		I054_ADDTNL_AMT = in.readUTF();
+		I055_ICC_DATA = in.readUTF();
+		I056_ORG_DATA = in.readUTF();
+		I058_AUTH_AGENT = in.readUTF();
+		I059_POS_GEO_DATA = in.readUTF();
+		I060_POS_CAP = in.readUTF();
+		I061V1_OTH_AMT_TXN = in.readLong();
+		I061V2_OTH_AMT_BIL = in.readLong();
+		I061V3_REP_AMT_BIL = in.readLong();
+		I061M_POS_DATA = in.readUTF();
+		I062V1_AUTH_String = in.readUTF();
+		I062V2_TRANS_ID = in.readUTF();
+		I062V3_VALIDAT_CD = in.readUTF();
+		I062V4_MRKT_DATA = in.readUTF();
+		I062V5_DURATION = in.readUTF();
+		I062V6_PRSTG_PROP = in.readUTF();
+		I063_BANKNET_DATA = in.readUTF();
+		I063V1_NETWORK_ID = in.readUTF();
+		I063V2_TIME_LIMIT = in.readUTF();
+		I063V3_MIS_CAS_RD = in.readUTF();
+		I063V4_STIP_RS = in.readUTF();
+		I063V5_PMC_ID = in.readUTF();
+		I068_RCV_CNTRY = in.readUTF();
+		I072_MSG_NUM_LST = in.readUTF();
+		I090_ORIG_DATA = in.readUTF();
+		I093_RSP_IND = in.readUTF();
+		I094_SVC_IND = in.readUTF();
+		I095_ACT_TRAN_AMT = in.readLong();
+		I100_RCV_INST = in.readUTF();
+		I101_FILE_NAME = in.readUTF();
+		I102_ACCT_ID1 = in.readUTF();
+		I103_ACCT_ID2 = in.readUTF();
+		I104_TRAN_DESC = in.readUTF();
+		I118_INTRA_COUNTRY = in.readUTF();
+		I120_ORIG_MSG_TYP = in.readUTF();
+		I123_ADR_VER = in.readUTF();
+		I124_GOODS_CODE = in.readUTF();
+		I125_SUPP_INFO1 = in.readUTF();
+		I126V6_CH_CSERIAL = in.readUTF();
+		I126V7_ME_CSERIAL = in.readUTF();
+		I126V8_TRXN_ID = in.readUTF();
+		I126V9_STAIN = in.readUTF();
+		I126V10_CVV2 = in.readUTF();
+		I126V18_AGENT_UNIQ_ACC_RSLT = in.readUTF();
+		I126V20_ADD_AUTH_METHOD = in.readUTF();
+		I126V21_ADD_AUTH_RSN_CD = in.readUTF();
+		I130_TERM_CAPA = in.readUTF();
+		I131_TVR = in.readUTF();
+		I132_UNPREDICT = in.readUTF();
+		I133_TERM_SERIAL = in.readUTF();
+		I134_VISA_DISCR = in.readUTF();
+		I135A_PREAUTHTRACE = in.readInt();
+		I135B_PURCHTRACE = in.readInt();
+		I135C_CRYPTTRACE = in.readInt();
+		I135D_KEYVERSION = in.readInt();
+		I136_CRYPTOGRAM = in.readUTF();
+		I137_ATC = in.readUTF();
+		I138_APL = in.readUTF();
+		I139_1_ARPC = in.readUTF();
+		I139_2_ARPC_RESCD = in.readUTF();
+		I142_SCRIPTSEND = in.readLong();
+		I143_SCRIPT_RES = in.readUTF();
+		I144_CRYP_TR = in.readUTF();
+		I145_TRM_CNTRY = in.readUTF();
+		I146_TRM_DATE = in.readUTF();
+		I147_CRYPT_AMT = in.readUTF();
+		I148_CRYPT_CURR = in.readUTF();
+		I149_CRYPT_CSBK = in.readUTF();
+		AUTH_RC = in.readInt();
+		
+	}
+	@Override
+	public void writeData(ObjectDataOutput out) throws IOException {
+		out.writeInt(MULTIINST_ID);
+		out.writeLong(AUTH_SERIAL_NO);
+		out.writeLong(LTIMESTAMP.getTime());
+		out.writeUTF(SOURCE);
+		out.writeUTF(MSG_FORMAT);
+		out.writeLong(OTB_AMT_CNTR);
+		out.writeLong(OTB_AMT_CARD);
+		out.writeInt(MSG_TRXN_TYPE);
+		out.writeInt(MSG_TRXN_MODE);
+		out.writeInt(MSG_TRXN_SPECIFICS);
+		out.writeLong(MSG_CLASS);
+		out.writeLong(MSG_TYPE);
+		out.writeLong(TRXN_TYPE);
+		out.writeLong(TRXN_ENTRY_MODE);
+		out.writeUTF(I000_MSG_TYPE);
+		out.writeUTF(I002_NUMBER);
+		out.writeUTF(I003_PROC_CODE);
+		out.writeLong(I004_AMT_TRXN);
+		out.writeLong(I005_AMT_SETTLE);
+		out.writeLong(I006_AMT_BILL);
+		out.writeUTF(I007_TRANS_DT);
+		out.writeUTF(I011_TRACE_NO);
+		out.writeUTF(I012_LCL_TIME);
+		out.writeUTF(I013_LCL_DATE);
+		out.writeUTF(I014_EXP_DATE);
+		out.writeUTF(I018_MER_TYPE);
+		out.writeUTF(I019_ACQ_COUNTRY);
+		out.writeUTF(I021_FWD_COUNTRY);
+		out.writeUTF(I022_POS_ENTRY);
+		out.writeUTF(I032_ACQ_ID);
+		out.writeUTF(I035_TRACK2);
+		out.writeUTF(I037_RET_REF_NO);
+		out.writeUTF(I038_AUTH_ID);
+		out.writeUTF(I039_RESP_CODE);
+		out.writeUTF(I041_POS_ID);
+		out.writeUTF(I042_MER_ID);
+		out.writeUTF(I043A_MER_NAME);
+		out.writeUTF(I043A_MER_CITY);
+		out.writeUTF(I043A_MER_COUNTRY);
+		out.writeUTF(I049_CUR_TRXN);
+		out.writeUTF(I050_CUR_SETTLE);
+		out.writeUTF(I051_CUR_BILL);
+		out.writeUTF(FRAUD);
+		out.writeUTF(I053_SEC_CNTRL);
+		out.writeUTF(I054_ADDTNL_AMT);
+		out.writeUTF(I055_ICC_DATA);
+		out.writeUTF(I056_ORG_DATA);
+		out.writeUTF(I058_AUTH_AGENT);
+		out.writeUTF(I059_POS_GEO_DATA);
+		out.writeUTF(I060_POS_CAP);
+		out.writeLong(I061V1_OTH_AMT_TXN);
+		out.writeLong(I061V2_OTH_AMT_BIL);
+		out.writeLong(I061V3_REP_AMT_BIL);
+		out.writeUTF(I061M_POS_DATA);
+		out.writeUTF(I062V1_AUTH_String);
+		out.writeUTF(I062V2_TRANS_ID);
+		out.writeUTF(I062V3_VALIDAT_CD);
+		out.writeUTF(I062V4_MRKT_DATA);
+		out.writeUTF(I062V5_DURATION);
+		out.writeUTF(I062V6_PRSTG_PROP);
+		out.writeUTF(I063_BANKNET_DATA);
+		out.writeUTF(I063V1_NETWORK_ID);
+		out.writeUTF(I063V2_TIME_LIMIT);
+		out.writeUTF(I063V3_MIS_CAS_RD);
+		out.writeUTF(I063V4_STIP_RS);
+		out.writeUTF(I063V5_PMC_ID);
+		out.writeUTF(I068_RCV_CNTRY);
+		out.writeUTF(I072_MSG_NUM_LST);
+		out.writeUTF(I090_ORIG_DATA);
+		out.writeUTF(I093_RSP_IND);
+		out.writeUTF(I094_SVC_IND);
+		out.writeLong(I095_ACT_TRAN_AMT);
+		out.writeUTF(I100_RCV_INST);
+		out.writeUTF(I101_FILE_NAME);
+		out.writeUTF(I102_ACCT_ID1);
+		out.writeUTF(I103_ACCT_ID2);
+		out.writeUTF(I104_TRAN_DESC);
+		out.writeUTF(I118_INTRA_COUNTRY);
+		out.writeUTF(I120_ORIG_MSG_TYP);
+		out.writeUTF(I123_ADR_VER);
+		out.writeUTF(I124_GOODS_CODE);
+		out.writeUTF(I125_SUPP_INFO1);
+		out.writeUTF(I126V6_CH_CSERIAL);
+		out.writeUTF(I126V7_ME_CSERIAL);
+		out.writeUTF(I126V8_TRXN_ID);
+		out.writeUTF(I126V9_STAIN);
+		out.writeUTF(I126V10_CVV2);
+		out.writeUTF(I126V18_AGENT_UNIQ_ACC_RSLT);
+		out.writeUTF(I126V20_ADD_AUTH_METHOD);
+		out.writeUTF(I126V21_ADD_AUTH_RSN_CD);
+		out.writeUTF(I130_TERM_CAPA);
+		out.writeUTF(I131_TVR);
+		out.writeUTF(I132_UNPREDICT);
+		out.writeUTF(I133_TERM_SERIAL);
+		out.writeUTF(I134_VISA_DISCR);
+		out.writeInt(I135A_PREAUTHTRACE);
+		out.writeInt(I135B_PURCHTRACE);
+		out.writeInt(I135C_CRYPTTRACE);
+		out.writeInt(I135D_KEYVERSION);
+		out.writeUTF(I136_CRYPTOGRAM);
+		out.writeUTF(I137_ATC);
+		out.writeUTF(I138_APL);
+		out.writeUTF(I139_1_ARPC);
+		out.writeUTF(I139_2_ARPC_RESCD);
+		out.writeLong(I142_SCRIPTSEND);
+		out.writeUTF(I143_SCRIPT_RES);
+		out.writeUTF(I144_CRYP_TR);
+		out.writeUTF(I145_TRM_CNTRY);
+		out.writeUTF(I146_TRM_DATE);
+		out.writeUTF(I147_CRYPT_AMT);
+		out.writeUTF(I148_CRYPT_CURR);
+		out.writeUTF(I149_CRYPT_CSBK);
+		out.writeInt(AUTH_RC);
 	}
 	
 	}

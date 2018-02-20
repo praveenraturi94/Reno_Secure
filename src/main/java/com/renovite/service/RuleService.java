@@ -20,22 +20,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.renovite.model.Employee;
 import com.renovite.model.IsoData;
+import com.renovite.model.IsoField;
 
 @Service
 public class RuleService {
 
-	 @Autowired
-	    HazelService hazel;
-	 
+	@Autowired
+	HazelService hazel;
+
 	public int executeRule(String rule) {
-	KieSession	ksession =  createKieSession(rule);
-	
-	List<IsoData> isoData = hazel.FetchAllHazelcastData();
-	
-	for(IsoData iso: isoData) {
-		ksession.insert(iso);
-	}
-	int failedRules = executeRule(ksession);
+		KieSession ksession = createKieSession(rule);
+
+		IsoField isoField = hazel.ParseIsoRequest();
+System.out.println("################### "+isoField.getAMOUNT_TRANSACTION_4());
+		ksession.insert(isoField);
+		int failedRules = executeRule(ksession);
+		
 		return failedRules;
 	}
 
@@ -60,9 +60,9 @@ public class RuleService {
 
 		return ksession;
 	}
-	
-public int executeRule(KieSession ksession){
-	return     ksession.fireAllRules();
-}
+
+	public int executeRule(KieSession ksession) {
+		return ksession.fireAllRules();
+	}
 
 }

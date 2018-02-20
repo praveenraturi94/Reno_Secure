@@ -1,14 +1,10 @@
 package com.renovite.service;
 
-import static org.assertj.core.api.Assertions.entry;
-
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
@@ -19,27 +15,47 @@ import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
+import com.hazelcast.query.EntryObject;
+import com.hazelcast.query.Predicate;
+import com.hazelcast.query.PredicateBuilder;
+import com.hazelcast.query.SqlPredicate;
 import com.renovite.dao.DBOperation;
 import com.renovite.model.IsoData;
+import com.renovite.model.IsoField;
 
 @Service
 public class HazelService {
 
 	@Autowired
 	DBOperation dbOperations;
+	
+	@Autowired
+	ParsingIsoData parsingIsoData;
 
 	public void PopulateHazelcast() {
 		HazelcastInstance client = getHazelCastClientInstance();
-		List<IsoData> clientList = client.getList("IsoData");
-		clientList.addAll(dbOperations.findAll());
+		Map<String,IsoData> clientList = client.getMap("IsoData");
+		
+		clientList.putAll(dbOperations.findAllBetween());
 	}
 
-	public List<IsoData> FetchAllHazelcastData() {
+	public Collection<IsoData> FetchAllHazelcastData(String query) {
 		HazelcastInstance client = getHazelCastClientInstance();
-		List<IsoData> clientList = client.getList("IsoData");
-		return clientList;
+		IMap<String,IsoData> clientMap = client.getMap("IsoData");
+//		System.out.println(clientMap.values());
+//		EntryObject e = new PredicateBuilder().getEntryObject();
+//		Predicate<String,IsoData> predicate = e.is( "41758" );
+		Collection<IsoData> isodata = clientMap.values(new SqlPredicate( query ));
+
+		return isodata;
 	}
 
+	public IsoField ParseIsoRequest() {
+		String data="0100B23F4401A8E080080000000000000004000000000000441253205721110218101102110255420211100000000009110000000000934B5262544901468123D181010114991888F0128867042750000002900000000018456797802610400140028000000000000000015000000000000001";
+		IsoField parsedData = parsingIsoData.parsingData(data);
+		return parsedData;
+	}
+	
 	public void insertRule() {
 		System.out.println("TTTTTTTT");
 		HazelcastInstance client = getHazelCastClientInstance();

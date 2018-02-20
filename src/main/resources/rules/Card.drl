@@ -1,133 +1,22 @@
 //import com.renovite.model.Cards
-import com.renovite.model.IsoData;
-
-/*
-rule "BIN ATTACK "
-salience 0
-when
-   $total : Number() from accumulate(
-        Cards( $cards : CARD_NO),
-         count($cards) )
-                 
-then
-  System.out.println("(salience 0)Count="+ $total);
-
-end
-*/
-rule "AUTH_SERIAL_NO" 
-
-salience 10
-when
-   $icsmg:IsoData(AUTH_SERIAL_NO==871048);
-then
-System.out.println("(salience 10) AUTH_SERIAL_NO="+$icsmg.getAUTH_SERIAL_NO());
-end
+import com.renovite.model.IsoField;
 
 
-
-
-
-rule "OTB_AMT_CNTR "
-salience 9
-enabled false
-when
-$icsmg:IsoData(OTB_AMT_CNTR==14144);
-
-then
- 
- System.out.println("(salience 9)OTB_AMT_CNTR="+$icsmg.getOTB_AMT_CNTR());
-end
-
-
-rule "MSG_TRXN_TYPE "
-salience 8
-when
-$icsmg:IsoData(MSG_TRXN_TYPE==4);
-
-then
- 
- System.out.println("(salience 8)MSG_TRXN_TYPE ="+$icsmg.getMSG_TRXN_TYPE());
-end
-
-
-
-
-rule "MSG_TRXN_MODE"
-salience 7
-when
-$icsmg:IsoData(MSG_TRXN_MODE==3);
-
-then
- 
- System.out.println("(salience 7)MSG_TRXN_MODE ="+$icsmg.getMSG_TRXN_MODE());
-end
-
-
-rule "MSG_TRXN_SPECIFICSE"
-salience 6
-when
-$icsmg:IsoData(MSG_TRXN_SPECIFICS==2);
-
-then
- 
- System.out.println("(salience 6)MSG_TRXN_SPECIFICS ="+$icsmg.getMSG_TRXN_MODE());
-end
-
-
-rule "MSG_TYPE"
-salience 5
-
-when
-$icsmg:IsoData(MSG_TYPE==1);
-
-then
- 
- System.out.println("(salience 5)MSG_TYPE="+$icsmg.getMSG_CLASS());
-end
-
-rule "I000_MSG_TYPE"
+rule "MSG_TYPE_0"
 salience 4
 
 when
-$icsmg:IsoData(I000_MSG_TYPE=="0200");
-
+$icsmg:IsoField(MSG_TYPE_0=="0100");
 then
- 
- System.out.println("(salience 4)I000_MSG_TYPE="+$icsmg.getI000_MSG_TYPE());
+ System.out.println("(salience 4)MSG_TYPE_0="+$icsmg.getMSG_TYPE_0());
 end
 
-rule "I004_AMT_TRXN"
+rule "AMOUNT_TRANSACTION_4"
 salience 3
 when
-$icsmg:IsoData(I004_AMT_TRXN==2871);
-
+$icsmg:IsoField(AMOUNT_TRANSACTION_4==441253);
 then
- 
- System.out.println("(salience 3)I004_AMT_TRXN="+$icsmg.getI004_AMT_TRXN());
-end
-
-rule "MSG_CLASS"
-salience 2
-
-when
-$icsmg:IsoData(MSG_CLASS==2);
-
-then
- 
- System.out.println("(salience 2)MSG_CLASS="+$icsmg.getMSG_CLASS());
-end
-
-
-
-rule "I013_LCL_DATE"
-salience 1
-
-when
-$icsmg:IsoData(I013_LCL_DATE=="0328");
-
-then
- 
- System.out.println("(salience 2)I013_LCL_DATE="+$icsmg.getI013_LCL_DATE());
+ System.out.println("(salience 3)AMOUNT_TRANSACTION_4="+$icsmg.getAMOUNT_TRANSACTION_4());
 end
 
 

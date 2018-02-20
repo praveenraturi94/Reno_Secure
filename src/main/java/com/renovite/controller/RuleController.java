@@ -1,7 +1,9 @@
 package com.renovite.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,9 +41,11 @@ public class RuleController {
 	
 	//retrive all the data that is in the hazelcast
 	@RequestMapping("/fetchAllHazelData")
-	public List<IsoData> fetchAllHazelData() {
-		return hazel.FetchAllHazelcastData();
+	public Collection<IsoData> fetchAllHazelData() {
+		
+		return hazel.FetchAllHazelcastData("AUTH_SERIAL_NO=1521553");
 	}
+	
 
 	//it will read all the drl files and then insert the rules in the hazelcast
 	@RequestMapping("/insertRules")
@@ -65,5 +69,9 @@ public class RuleController {
 	@RequestMapping("/fetchAll")
 	public List<IsoData> FetchAllRecords() {
 		return dbOperations.findAll();
+	}
+	@RequestMapping("/fetchAllBetween")
+	public Map<String,IsoData> FetchAllRecordsBetween() {
+		return dbOperations.findAllBetween();
 	}
 }
