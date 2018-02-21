@@ -1,10 +1,6 @@
 package com.renovite.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
 
 public class IsoField implements Serializable {
 	/**

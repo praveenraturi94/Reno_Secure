@@ -3,12 +3,8 @@ package com.renovite.service;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Collection;
-import java.util.List;
-
-import org.kie.api.KieServices;
 import org.kie.api.io.Resource;
 import org.kie.api.io.ResourceType;
-import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.KnowledgeBase;
 import org.kie.internal.KnowledgeBaseFactory;
@@ -18,8 +14,6 @@ import org.kie.internal.io.ResourceFactory;
 import org.kie.internal.runtime.StatefulKnowledgeSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.renovite.model.Employee;
-import com.renovite.model.IsoData;
 import com.renovite.model.IsoField;
 
 @Service

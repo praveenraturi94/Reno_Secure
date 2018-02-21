@@ -41,9 +41,14 @@ public class RuleController {
 	
 	//retrive all the data that is in the hazelcast
 	@RequestMapping("/fetchAllHazelData")
-	public Collection<IsoData> fetchAllHazelData() {
+	public String fetchAllHazelData() {
 		
-		return hazel.FetchAllHazelcastData("AUTH_SERIAL_NO=1521553");
+		Collection<IsoData> isoData = hazel.FetchAllHazelcastData("AUTH_SERIAL_NO=1521553");
+		StringBuilder sb=new StringBuilder();
+		for(IsoData data: isoData) {
+			sb.append(data.getAUTH_SERIAL_NO() +",");
+		}
+		return sb.toString();
 	}
 	
 
@@ -66,10 +71,7 @@ public class RuleController {
 		String rule = hazel.fetchRule("Card");
 		return rule;
 	}
-	@RequestMapping("/fetchAll")
-	public List<IsoData> FetchAllRecords() {
-		return dbOperations.findAll();
-	}
+
 	@RequestMapping("/fetchAllBetween")
 	public Map<String,IsoData> FetchAllRecordsBetween() {
 		return dbOperations.findAllBetween();

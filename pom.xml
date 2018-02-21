@@ -6,7 +6,7 @@
 	<groupId>com.renovite</groupId>
 	<artifactId>renoSecure</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>Reno_Secure</name>
 	<description>Demo project for Spring Boot</description>
@@ -17,14 +17,34 @@
 		<version>1.4.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
+	<!-- https://mvnrepository.com/artifact/oracle/ojdbc6 -->
+<dependency>
+    <groupId>oracle</groupId>
+    <artifactId>ojdbc6</artifactId>
+    <version>11.2.0.3</version>
+</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/com.hazelcast/hazelcast -->
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast</artifactId>
+			<version>3.9.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -33,6 +53,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- <dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
@@ -97,14 +122,24 @@
 			<version>2.5</version>
 		</dependency>
 
-		
+		<!-- https://mvnrepository.com/artifact/com.sleepycat/je -->
+		<dependency>
+			<groupId>com.sleepycat</groupId>
+			<artifactId>je</artifactId>
+			<version>4.0.92</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.jdom</groupId>
 			<artifactId>jdom2</artifactId>
-			<version>2.0.6</version>
-		</dependency> 
-		
-		<!-- <dependency>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jpos/jpos -->
+		<dependency>
+			<groupId>org.jpos</groupId>
+			<artifactId>jpos</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-client</artifactId>
 			<version>3.9.2</version>
@@ -113,19 +148,7 @@
 			<groupId>com.hazelcast</groupId>
 			<artifactId>hazelcast-all</artifactId>
 			<version>3.9.2</version>
-		</dependency> -->
-
-
+		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
 
 </project>
